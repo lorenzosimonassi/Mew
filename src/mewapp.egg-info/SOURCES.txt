@@ -1,0 +1,6 @@
+pyproject.toml
+src/mewapp.egg-info/PKG-INFO
+src/mewapp.egg-info/SOURCES.txt
+src/mewapp.egg-info/dependency_links.txt
+src/mewapp.egg-info/requires.txt
+src/mewapp.egg-info/top_level.txt

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen py-12 px-4 bg-gray-50">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-extrabold text-orange-500 mb-8 text-center">📋 Consultas Recebidas</h2>
+
+    <div class="space-y-6">
+      {% for consulta in consultas %}
+        <div class="bg-white border border-orange-100 rounded-2xl shadow-md p-6">
+          <div class="flex flex-col md:flex-row justify-between md:items-center gap-4">
+            <div class="text-orange-800 text-sm space-y-1">
+              <p><span class="font-semibold">🐾 Pet:</span> {{ consulta.pet.nome }}</p>
+              <p><span class="font-semibold">👤 Dono:</span> {{ consulta.user.username }}</p>
+              <p><span class="font-semibold">📅 Data:</span> {{ consulta.horario.strftime('%d/%m/%Y às %H:%M') }}</p>
+              <p><span class="font-semibold">📌 Status:</span> {{ consulta.estado }}</p>
+            </div>
+
+            <div class="flex space-x-2">
+              {% if consulta.estado == 'Aguardando' %}
+                <a href="{{ url_for('aceitar_consulta', consulta_id=consulta.id) }}" 
+                   class="bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-lg shadow text-sm transition">
+                  Aceitar
+                </a>
+              {% elif consulta.estado == 'Aceito' %}
+                <button class="bg-orange-500 hover:bg-orange-600 text-white font-medium px-4 py-2 rounded-lg shadow text-sm transition">
+                  Entrar na Consulta
+                </button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <p class="text-center text-orange-600 font-medium">Nenhuma consulta agendada</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

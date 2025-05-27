@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="h-[80vh] flex items-center justify-center px-4">
+    <form method="POST" class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center text-black mb-6">Fazer Pergunta</h1>
+
+        {{ form.hidden_tag() }}
+
+        <div class="mb-4">
+            <label class="block text-orange-600 font-medium mb-1">{{ form.pergunta.label.text }}</label>
+            {{ form.pergunta(class="w-full border-2 border-orange-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400") }}
+            {% for error in form.pergunta.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-6">
+            {{ form.submit(class="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-md transition duration-200") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

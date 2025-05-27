@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Navbar -->
+
+
+<!-- Conteúdo da main -->
+<section
+  class="w-full min-h-[10vh] items-center bg-start bg-[position:top_0%_left_50%] bg-auto bg-no-repeat bg-[url(/static/images/vet.png)] mask-x-from-90% mask-x-to-100% py-50">
+  <div class="max-w-5xl flex mx-auto px-4 py-12 flex-col md:flex-row items-center gap-12">
+    <div class="md:w-full space-y-8">
+      <h1 class="text-5xl md:text-6xl font-bold text-orange-500 leading-tight">
+        Cuide do Seu Pet com Facilidade, de Qualquer Lugar!
+      </h1>
+      <p class="text-xl md:text-2xl font-semibold text-zinc-800">
+        Consultas veterinárias online com profissionais qualificados, para garantir o bem-estar do seu pet, sem sair de
+        casa.
+      </p>
+      <button
+        class="px-8 py-3 rounded-3xl text-lg font-bold bg-gradient-to-r from-orange-400 to-orange-600 text-white hover:scale-105 transition shadow-xl hover:cursor-pointer">
+        Agende sua Consulta
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Sessão Quem Somos -->
+<section id="about" class="w-full min-h-[10vh] py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="w-full text-center mb-12">
+      <h1 class="text-5xl md:text-6xl font-bold text-black underline underline-offset-8 decoration-orange-500 mt-16">
+        Quem somos?
+      </h1>
+    </div>
+
+    <div class="flex flex-col md:flex-row items-center gap-12 py-16">
+      <div class="md:w-1/2">
+        <p class="text-xl md:text-2xl font-semibold text-zinc-800">
+          Nós somos o Mew, uma plataforma dedicada a oferecer cuidados veterinários de qualidade, com o conforto e
+          praticidade de consultas online.
+        </p>
+      </div>
+
+      <div class="md:w-1/2 flex justify-center">
+        <img
+          src="/static/images/gato.png"
+          alt="gato" class="w-full max-w-md rounded-xl shadow-xl">
+      </div>
+    </div>
+
+    <p class="text-xl md:text-2xl py-16 font-semibold text-zinc-800">
+      Nossa missão é tornar o atendimento veterinário acessível, rápido e eficaz, sem que você precise sair de casa.
+      Através da nossa plataforma, você pode agendar atendimentos a qualquer hora e de qualquer lugar, com a confiança
+      de que seu animal está em boas mãos.
+    </p>
+
+    <div class="flex flex-col md:flex-row items-center gap-12 py-16">
+      <div class="md:w-1/2">
+        <img
+          src="/static/images/teleconsulta.png"
+          alt="teleconsulta" class="w-full max-w-md rounded-xl shadow-xl">
+      </div>
+
+      <div class="md:w-1/2 flex justify-center">
+        <p class="text-xl md:text-2xl font-semibold text-zinc-800">
+          Nossa equipe é composta por veterinários experientes e apaixonados por animais, prontos para cuidar da saúde
+          do seu pet com todo carinho e profissionalismo. Oferecemos um atendimento personalizado, seja para dúvidas do
+          dia a dia, orientações de emergência, ou consultas para cuidados preventivos e tratamentos especializados.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="w-full h-[2px] max-w-6xl mx-auto my-10"
+  style="background-image: linear-gradient(90deg, rgba(149, 131, 198, 0) 1.46%, rgba(149, 131, 198, 0.6) 40.83%, rgba(149, 131, 198, 0.3) 65.57%, rgba(149, 131, 198, 0) 107.92%);">
+</div>
+
+<!-- Sessão Serviços -->
+<section id="services" class="w-full min-h-[10vh] py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="w-full text-center mb-12">
+      <h1 class="text-5xl md:text-6xl font-bold text-black underline underline-offset-8 decoration-orange-500 mt-16">
+        Serviços
+      </h1>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 py-16">
+      <div
+        class="bg-zinc-100 rounded-xl h-[300px] w-full max-w-[500px] flex flex-col transition-transform duration-200 hover:scale-[1.05] cursor-pointer shadow-xl/20">
+        <div class="bg-orange-400 rounded-t-2xl h-16 justify-center items-center flex">
+          <h1 class="text-3xl text-white">Consultas Veterinárias Online</h1>
+        </div>
+        <div class="flex-1 flex items-center justify-center text-start p-4">
+          <p class="text-2xl text-black">Agende uma consulta veterinária com um especialista no conforto de sua casa.
+          </p>
+        </div>
+        <div>
+          <button
+            class="px-8 mb-4 ml-4 py-3 rounded-3xl text-lg font-bold bg-gradient-to-r from-orange-400 to-orange-600 text-white hover:scale-105 transition shadow-xl hover:cursor-pointer">
+            Agende sua Consulta
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="bg-zinc-100 rounded-xl h-[300px] w-full max-w-[500px] flex flex-col transition-transform duration-200 hover:scale-[1.05] cursor-pointer shadow-xl/20">
+        <div class="bg-orange-400 rounded-t-2xl h-16 justify-center items-center flex">
+          <h1 class="text-3xl text-white">Aconselhamento Nutricional</h1>
+        </div>
+        <div class="flex-1 flex items-center justify-center text-start p-4">
+          <p class="text-2xl text-black">Receba orientações personalizadas sobre a alimentação do seu pet.</p>
+        </div>
+        <div>
+          <button
+            class="px-8 mb-4 ml-4 py-3 rounded-3xl text-lg font-bold bg-gradient-to-r from-orange-400 to-orange-600 text-white hover:scale-105 transition shadow-xl hover:cursor-pointer">
+            Saiba Mais
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="bg-zinc-100 rounded-xl h-[300px] w-full max-w-[500px] flex flex-col transition-transform duration-200 hover:scale-[1.05] cursor-pointer shadow-xl/20">
+        <div class="bg-orange-400 rounded-t-2xl h-16 justify-center items-center flex">
+          <h1 class="text-3xl text-white">Aconselhamento Comportamental</h1>
+        </div>
+        <div class="flex-1 flex items-center justify-center text-start p-4">
+          <p class="text-2xl text-black">Dicas e orientação sobre comportamento de pets.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-center items-center">
+        <img class="m-auto"
+          src="/static/images/pick.png"
+          alt="mulher e cachorro">
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

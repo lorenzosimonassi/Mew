@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="h-[100vh] py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <div class="max-w-5xl mx-auto space-y-12">
+
+    <!-- Formulário de Pet -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 border border-orange-100">
+      <h2 class="text-3xl font-extrabold text-orange-500 mb-8">🐾 Adicionar Pet</h2>
+      <form method="POST" action="{{ url_for('profile_items') }}" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{ pet_form.hidden_tag() }}
+        {% for field in [pet_form.nome, pet_form.peso, pet_form.sangue, pet_form.idade, pet_form.raca, pet_form.especie, pet_form.pelagem, pet_form.sexo] %}
+          <div>
+            {{ field.label(class="block text-sm font-semibold text-orange-500 mb-1") }}
+            {{ field(class="w-full px-4 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none") }}
+            {% for error in field.errors %}
+              <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endfor %}
+        <div class="md:col-span-2">
+          {{ pet_form.submit_pet(class="w-full md:w-auto px-8 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg shadow transition") }}
+        </div>
+      </form>
+    </div>
+
+    <!-- Formulário de Pagamento -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 border border-orange-100">
+      <h2 class="text-3xl font-extrabold text-orange-500 mb-8">💳 Adicionar Pagamento</h2>
+      <form method="POST" action="{{ url_for('profile_items') }}" class="space-y-6">
+        {{ pagamento_form.hidden_tag() }}
+
+        {% for field in [pagamento_form.data_pagamento, pagamento_form.tipo] %}
+          <div>
+            {{ field.label(class="block text-sm font-semibold text-orange-500 mb-1") }}
+            {{ field(class="w-full px-4 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none") }}
+            {% for error in field.errors %}
+              <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+        <div id="cartao_fields" class="space-y-6" style="display: none;">
+          {% for field in [pagamento_form.bandeira_cartao, pagamento_form.numero_cartao] %}
+            <div>
+              {{ field.label(class="block text-sm font-semibold text-orange-500 mb-1") }}
+              {{ field(class="w-full px-4 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none") }}
+              {% for error in field.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endfor %}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for field in [pagamento_form.nome_cartao, pagamento_form.codigo_seguranca] %}
+              <div>
+                {{ field.label(class="block text-sm font-semibold text-orange-500 mb-1") }}
+                {{ field(class="w-full px-4 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none") }}
+                {% for error in field.errors %}
+                  <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div>
+          {{ pagamento_form.submit_pagamento(class="w-full md:w-auto px-8 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg shadow transition") }}
+        </div>
+      </form>
+    </div>
+
+    <!-- Formulário de Sintomas -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 border border-orange-100">
+      <h2 class="text-3xl font-extrabold text-orange-500 mb-8">😷 Adicionar Sintoma</h2>
+      <form method="POST" action="{{ url_for('profile_items') }}" class="space-y-6">
+        {{ sintoma_form.hidden_tag() }}
+        <div>
+          <label class="block text-sm font-semibold text-orange-500 mb-1">Selecione um pet:</label>
+          <select name="pet_id" required
+            class="w-full px-4 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none">
+            <option value="">Selecione um pet</option>
+            {% for pet in pets %}
+              <option value="{{ pet.id }}">{{ pet.nome }} ({{ pet.especie }})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {% for field in [sintoma_form.sintoma_comum, sintoma_form.outro_sintoma] %}
+            <div>
+              {{ field.label(class="block text-sm font-semibold text-orange-500 mb-1") }}
+              {{ field(class="w-full px-4 py-2 border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none") }}
+              {% for error in field.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+        <div>
+          {{ sintoma_form.submit_sintoma(class="w-full md:w-auto px-8 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg shadow transition") }}
+        </div>
+      </form>
+    </div>
+
+    <!-- Lista de Pets -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 border border-orange-100">
+      <h2 class="text-3xl font-extrabold text-orange-500 mb-8">🐶 Seus Pets</h2>
+      {% if pets %}
+        {% for pet in pets %}
+          <div class="mb-8 border-b border-orange-100 pb-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-orange-700">{{ pet.nome }} - {{ pet.especie }}</h3>
+              <span class="text-xs text-gray-500">ID: {{ pet.id }}</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-orange-800">
+              <div><span class="font-semibold">Raça:</span> {{ pet.raca }}</div>
+              <div><span class="font-semibold">Idade:</span> {{ pet.idade }} anos</div>
+              <div><span class="font-semibold">Peso:</span> {{ pet.peso }} kg</div>
+              <div><span class="font-semibold">Sexo:</span> {{ pet.sexo }}</div>
+            </div>
+            <div class="mt-4">
+              <h4 class="text-md font-semibold text-orange-600 mb-2">🩺 Sintomas Registrados</h4>
+              {% if pet.sintomas.count() > 0 %}
+                <ul class="list-disc pl-6 text-sm space-y-1 text-orange-700">
+                  {% for sintoma in pet.sintomas.order_by(Sintoma.data_registro.desc()).all() %}
+                    <li>{{ sintoma.descricao }}</li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="text-sm text-orange-500">Nenhum sintoma registrado.</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="text-orange-600 text-lg font-semibold">Você ainda não cadastrou nenhum pet.</p>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}

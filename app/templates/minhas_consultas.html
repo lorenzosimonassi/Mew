@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen py-12 px-4 bg-gray-50">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-extrabold text-orange-500 mb-8 text-center">📋 Minhas Consultas</h2>
+
+    <div class="space-y-6">
+      {% for consulta in consultas %}
+        <div class="bg-white border border-orange-100 rounded-2xl shadow-md p-6">
+          <div class="flex flex-col md:flex-row justify-between md:items-center gap-4">
+            <div class="text-orange-800 text-sm space-y-1">
+              <p><span class="font-semibold">🐶 Pet:</span> {{ consulta.pet.nome }}</p>
+              <p><span class="font-semibold">👨‍⚕️ Veterinário:</span> {{ consulta.veterinario.username if consulta.veterinario else 'Aguardando' }}</p>
+              <p><span class="font-semibold">📅 Data:</span> {{ consulta.horario.strftime('%d/%m/%Y às %H:%M') }}</p>
+              <p><span class="font-semibold">📌 Status:</span> {{ consulta.estado }}</p>
+            </div>
+
+            {% if consulta.estado == 'Aceito' %}
+              <div class="text-right">
+                <button class="mt-2 md:mt-0 bg-orange-500 hover:bg-orange-600 text-white font-medium px-5 py-2 rounded-lg shadow transition text-sm">
+                  Entrar na Consulta
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% else %}
+        <p class="text-center text-orange-600 font-medium">Nenhuma consulta agendada</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

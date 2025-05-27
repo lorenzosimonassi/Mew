@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen py-12 px-4 bg-gray-50">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-extrabold text-orange-500 text-center mb-10">🌟 Avaliações</h1>
+
+    <div class="bg-white rounded-3xl shadow-md p-8 border border-orange-100 mb-10">
+      <div class="flex items-center mb-4">
+        <div class="text-4xl font-bold text-orange-600 mr-4">4.8</div>
+        <div class="flex">
+          {% for i in range(5) %}
+            {% if i < 4 %}
+              <span class="text-yellow-400 text-2xl">★</span>
+            {% else %}
+              <span class="text-yellow-400 text-2xl">☆</span>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="ml-3 text-orange-700">(128 avaliações)</div>
+      </div>
+      <p class="text-orange-800">Baseado nas últimas consultas realizadas</p>
+    </div>
+
+    <div class="space-y-6">
+      <!-- Avaliação 1 -->
+      <div class="bg-white border border-orange-100 rounded-2xl shadow-sm p-6">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="font-semibold text-lg text-orange-800">Maria Silva</h3>
+          <div class="flex text-yellow-400 text-lg">★ ★ ★ ★ ★</div>
+        </div>
+        <p class="text-sm text-orange-600 mb-2">15/05/2023</p>
+        <p class="text-orange-900">"O Dr. foi muito atencioso com meu gato e explicou tudo detalhadamente. Recomendo!"</p>
+      </div>
+
+      <!-- Avaliação 2 -->
+      <div class="bg-white border border-orange-100 rounded-2xl shadow-sm p-6">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="font-semibold text-lg text-orange-800">João Oliveira</h3>
+          <div class="flex text-yellow-400 text-lg">★ ★ ★ ★ ☆</div>
+        </div>
+        <p class="text-sm text-orange-600 mb-2">10/05/2023</p>
+        <p class="text-orange-900">"Boa consulta, mas a espera foi um pouco longa."</p>
+      </div>
+
+      <!-- Avaliação 3 -->
+      <div class="bg-white border border-orange-100 rounded-2xl shadow-sm p-6">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="font-semibold text-lg text-orange-800">Ana Costa</h3>
+          <div class="flex text-yellow-400 text-lg">★ ★ ★ ★ ★</div>
+        </div>
+        <p class="text-sm text-orange-600 mb-2">03/05/2023</p>
+        <p class="text-orange-900">"Melhor veterinário que já levei meus pets! Extremamente profissional e cuidadoso."</p>
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-bold shadow transition">
+        Carregar mais avaliações
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}

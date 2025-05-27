@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8 mt-12">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-orange-500">
+      Registrar-se como Veterinário
+    </h2>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow-xl rounded-3xl sm:px-10">
+      <form class="space-y-6" method="POST" action="{{ url_for('register_vet') }}">
+        {{ form.hidden_tag() }}
+
+        <div>
+          {{ form.username.label(class="block text-sm font-medium text-orange-700") }}
+          {{ form.username(class="mt-1 block w-full px-3 py-2 border border-orange-200 rounded-lg shadow-sm placeholder-orange-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm") }}
+          {% for error in form.username.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.email.label(class="block text-sm font-medium text-orange-700") }}
+          {{ form.email(class="mt-1 block w-full px-3 py-2 border border-orange-200 rounded-lg shadow-sm placeholder-orange-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm") }}
+          {% for error in form.email.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.telefone.label(class="block text-sm font-medium text-orange-700") }}
+          {{ form.telefone(class="mt-1 block w-full px-3 py-2 border border-orange-200 rounded-lg shadow-sm placeholder-orange-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm") }}
+          {% for error in form.telefone.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.password.label(class="block text-sm font-medium text-orange-700") }}
+          {{ form.password(class="mt-1 block w-full px-3 py-2 border border-orange-200 rounded-lg shadow-sm placeholder-orange-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm") }}
+          {% for error in form.password.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.password2.label(class="block text-sm font-medium text-orange-700") }}
+          {{ form.password2(class="mt-1 block w-full px-3 py-2 border border-orange-200 rounded-lg shadow-sm placeholder-orange-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm") }}
+          {% for error in form.password2.errors %}
+            <p class="mt-2 text-sm text-red-600">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <div>
+          {{ form.submit(class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-md text-sm font-medium text-white bg-gradient-to-r from-orange-400 to-orange-600 hover:scale-105 transition") }}
+        </div>
+      </form>
+
+      <div class="mt-6">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-orange-200"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-orange-500">
+              Já tem uma conta?
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <a href="{{ url_for('login') }}" class="w-full flex justify-center py-2 px-4 border border-orange-300 rounded-lg shadow-sm text-sm font-medium text-orange-700 bg-white hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+            Fazer login
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Máscara para telefone
+document.getElementById("{{ form.telefone.id }}").addEventListener("input", function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+    e.target.value = value;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: mewapp
+Version: 2025.5.0a1
+Requires-Dist: Flask
+Requires-Dist: flask-wtf
+Requires-Dist: sqlalchemy
+Requires-Dist: flask-login
+Requires-Dist: flask-migrate
+Requires-Dist: email-validator
+Requires-Dist: phonenumbers

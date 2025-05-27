@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    {% if title %}
+    <title>{{ title }} - MEW</title>
+    {% else %}
+    <title>Bem vindo ao MEW</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/output.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-gray-50 font-poppins">
+    <!-- Header -->
+    <header class="bg-white shadow-sm relative z-60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20">
+            <div class="flex justify-between h-24 items-center">
+                <!-- Logo/Title -->
+                <div class="flex-shrink-0 flex items-center">
+                    <h1 class="text-xl font-bold text-gray-900">
+                        <a href="{{ url_for('index') }}" class="hover:opacity-80 transition-opacity duration-200">
+                            <img class="h-12 w-auto" src="/static/images/mew.png" alt="Mew Logo">
+                        </a>
+                    </h1>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="{{ url_for('index') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'index' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Home
+                    </a>
+
+                    {% if current_user.is_authenticated %}
+                    {% if current_user.tipo_usuario == 0 %} <!-- Cliente -->
+                    <a href="{{ url_for('solicitar_consulta') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'solicitar_consulta' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Solicitar Consulta
+                    </a>
+                    {% endif %}
+                    {% if current_user.tipo_usuario != 1 %} <!-- Não mostra para veterinário -->
+                    <a href="{{ url_for('minhas_consultas') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'minhas_consultas' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Minhas Consultas
+                    </a>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if current_user.is_authenticated and current_user.tipo_usuario == 1 %}
+                    <a href="{{ url_for('consultas_pendentes') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'consultas_pendentes' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Ver Consultas
+                    </a>
+                    {% endif %}
+
+                    {% if current_user.is_anonymous or current_user.tipo_usuario != 1 %}
+                    <a href="{{ url_for('profile_items') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'profile_items' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Itens Pets
+                    </a>
+                    {% endif %}
+
+                    {% if current_user.is_authenticated and current_user.tipo_usuario == 1 %}
+                    <a href="{{ url_for('avaliacoes') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'avaliacoes' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Avaliações
+                    </a>
+                    {% endif %}
+
+                    {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('register_vet') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'register_vet' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Sou Veterinário
+                    </a>
+                    {% endif %}
+
+                    <a href="{{ url_for('faq') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'faq' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        FAQ
+                    </a>
+
+                    <a href="{{ url_for('parcerias') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'parcerias' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Parcerias
+                    </a>
+                </nav>
+
+                <!-- Auth Links -->
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <a href="{{ url_for('register_vet') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'register_vet' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200 mr-4">
+                        Trabalhe Conosco
+                    </a>
+
+                    {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('login') }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'login' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Login
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('user', username=current_user.username) }}"
+                        class="{{ 'border-amber-500 text-gray-900' if request.endpoint == 'user' else 'border-transparent text-gray-500' }} inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium hover:border-amber-300 hover:text-amber-700 transition-colors duration-200">
+                        Perfil
+                    </a>
+                    <a href="{{ url_for('logout') }}"
+                        class="ml-4 border-transparent text-gray-500 hover:border-amber-300 hover:text-amber-700 inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium transition-colors duration-200">
+                        Logout
+                    </a>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-amber-600 hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-amber-500 transition duration-200">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger icon -->
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu (hidden by default) -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="{{ url_for('index') }}"
+                    class="bg-amber-50 border-amber-500 text-amber-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Home
+                </a>
+
+                {% if current_user.is_authenticated %}
+                {% if current_user.tipo_usuario == 0 %}
+                <a href="{{ url_for('solicitar_consulta') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'solicitar_consulta' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Solicitar Consulta
+                </a>
+                {% endif %}
+                {% if current_user.tipo_usuario != 1 %} <!-- NÃO mostrar para veterinário -->
+                <a href="{{ url_for('minhas_consultas') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'minhas_consultas' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Minhas Consultas
+                </a>
+                {% endif %}
+                {% endif %}
+
+                {% if current_user.is_authenticated and current_user.tipo_usuario == 1 %}
+                <a href="{{ url_for('consultas_pendentes') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'consultas_pendentes' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Ver Consultas
+                </a>
+                {% endif %}
+
+                {% if current_user.is_anonymous or current_user.tipo_usuario != 1 %}
+                <a href="{{ url_for('profile_items') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'profile_items' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Itens Pets
+                </a>
+                {% endif %}
+
+                {% if current_user.is_authenticated and current_user.tipo_usuario == 1 %}
+                <a href="{{ url_for('avaliacoes') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'avaliacoes' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Avaliações
+                </a>
+                {% endif %}
+
+                {% if current_user.is_anonymous %}
+                <a href="{{ url_for('register_vet') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'register_vet' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Sou Veterinário
+                </a>
+                {% endif %}
+
+                <a href="{{ url_for('faq') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'faq' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    FAQ
+                </a>
+
+                <a href="{{ url_for('parcerias') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'parcerias' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Parcerias
+                </a>
+
+                {% if current_user.is_anonymous %}
+                <a href="{{ url_for('login') }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'login' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Login
+                </a>
+                {% else %}
+                <a href="{{ url_for('user', username=current_user.username) }}"
+                    class="{{ 'bg-amber-50 border-amber-500 text-amber-700' if request.endpoint == 'user' else 'border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700' }} block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Perfil
+                </a>
+                <a href="{{ url_for('logout') }}"
+                    class="border-transparent text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+                    Logout
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo da página -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+
+</html>

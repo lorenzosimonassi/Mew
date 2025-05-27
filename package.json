@@ -1,0 +1,15 @@
+{
+  "name": "mewweb",
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./app/static/src/input.css -o ./app/static/dist/output.css --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.7"
+  },
+  "devDependencies": {
+    "tailwindcss": "4.1"
+  }
+}
