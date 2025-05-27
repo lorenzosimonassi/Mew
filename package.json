@@ -1,7 +1,8 @@
 {
   "name": "mewweb",
   "scripts": {
-    "dev": "npx @tailwindcss/cli -i ./app/static/src/input.css -o ./app/static/dist/output.css --watch"
+    "dev": "npx @tailwindcss/cli -i ./app/static/src/input.css -o ./app/static/dist/output.css --watch",
+    "build": "npx @tailwindcss/cli -i ./app/static/src/input.css -o ./app/static/dist/output.css --minify"
   },
   "author": "",
   "license": "ISC",
